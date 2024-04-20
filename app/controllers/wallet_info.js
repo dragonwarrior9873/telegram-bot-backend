@@ -10,14 +10,14 @@ exports.create = (req, res) => {
   }
 
   // Create a Wallet_Info
-  const Wallet_Info = new Wallet_Info({
+  const wallet_Info = new Wallet_Info({
     wallet_address: req.body.wallet_address,
     mnemonics: req.body.mnemonics,
   });
 
   // Save Wallet_Info in the database
-  Wallet_Info
-    .save(Wallet_Info)
+  wallet_Info
+    .save(wallet_Info)
     .then(data => {
       res.send(data);
     })
@@ -34,7 +34,7 @@ exports.findAll = (req, res) => {
   const wallet_address = req.query.wallet_address;
   var condition = wallet_address ? { wallet_address: { $regex: new RegExp(wallet_address), $options: "i" } } : {};
 
-  Wallet_Info.find(condition)
+  wallet_Info.find(condition)
     .then(data => {
       res.send(data);
     })
@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Wallet_Info.findById(id)
+  wallet_Info.findById(id)
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found Wallet_Info with id " + id });
@@ -73,7 +73,7 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Wallet_Info.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  wallet_Info.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
@@ -92,7 +92,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Wallet_Info.findByIdAndRemove(id, { useFindAndModify: false })
+  wallet_Info.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
@@ -113,7 +113,7 @@ exports.delete = (req, res) => {
 
 // Delete all Wallet_Infos from the database.
 exports.deleteAll = (req, res) => {
-  Wallet_Info.deleteMany({})
+  wallet_Info.deleteMany({})
     .then(data => {
       res.send({
         message: `${data.deletedCount} Wallet_Infos were deleted successfully!`
