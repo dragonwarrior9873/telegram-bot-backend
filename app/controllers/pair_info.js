@@ -4,21 +4,21 @@ const Pair_Info = db.pair_infos;
 // Create and Save a new Pair_Info
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.pairContract) {
+  if (!req.body.jetton0) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
 
   // Create a Pair_Info
   const pair_info = new Pair_Info({
-    pairContract: req.body.pairContract,
+    jetton0: req.body.jetton0,
+    jetton1: req.body.jetton1,
     sell_limit: req.body.sell_limit,
     buy_limit: req.body.buy_limit 
   });
 
   // Save Pair_Info in the database
-  pair_info
-    .save(pair_info)
+  pair_info.save(pair_info)
     .then(data => {
       res.send(data);
     })
@@ -32,8 +32,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Pair_Infos from the database.
 exports.findAll = (req, res) => {
-  const pairContract = req.query.pairContract;
-  var condition = pairContract ? { pairContract: { $regex: new RegExp(pairContract), $options: "i" } } : {};
+  const jetton0 = req.query.jetton0;
+  var condition = jetton0 ? { jetton0: { $regex: new RegExp(jetton0), $options: "i" } } : {};
 
   Pair_Info.find(condition)
     .then(data => {

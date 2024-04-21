@@ -1,7 +1,8 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
-      pairContract: String,
+      jetton0: String,
+      jetton1: String,
       sell_limit: Number,
       buy_limit: Number,
     },
