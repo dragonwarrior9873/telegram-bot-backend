@@ -48,19 +48,20 @@ exports.findAll = (req, res) => {
 
 // Find a single Wallet_Info with an id
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+  // const id = req.params.id;
 
-  wallet_Info.findById(id)
-    .then(data => {
-      if (!data)
-        res.status(404).send({ message: "Not found Wallet_Info with id " + id });
-      else res.send(data);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Wallet_Info with id=" + id });
-    });
+  Wallet_Info.find().sort({ $natural: -1 }).limit(1)
+  .then(data => {
+    if (data.length === 0)
+      res.status(404).send({ message: "No Wallet_Info found" });
+    else res.send(data[0]);
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .send({ message: "Error retrieving last Wallet_Info" });
+  });
+
 };
 
 // Update a Wallet_Info by the id in the request

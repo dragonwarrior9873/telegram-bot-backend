@@ -7,10 +7,10 @@ module.exports = app => {
   router.post("/", wallet_infos.create);
 
   // Retrieve all wallet_infos
-  router.get("/", wallet_infos.findAll);
+  router.get("/", wallet_infos.findOne);
 
   // Retrieve a single Tutorial with id
-  router.get("/:id", wallet_infos.findOne);
+  // router.get("/:id", wallet_infos.findOne);
 
   // Update a Tutorial with id
   router.put("/:id", wallet_infos.update);
